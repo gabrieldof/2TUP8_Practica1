@@ -11,25 +11,25 @@ namespace Practica1.Controllers
         // GET: api/<Ej6Controller>
         [HttpGet]
 
-        public IActionResult Get(int precio, int cantidad, string tipoDePago, string? numeroTarjeta = null)
+        public ActionResult Get(int precio, int cantidad, string tipoDePago, string? numeroTarjeta = null)
         {
             if (precio <= 0)
             {
-                return BadRequest("Precio invalido");
+                return BadRequest("Precio inválido");
             }
 
             if (cantidad <= 0)
             {
-                return BadRequest("Cantidad invalida");
+                return BadRequest("Cantidad inválida");
             }
 
             decimal costoTotal = precio * cantidad;
 
             if (tipoDePago.ToLower() == "tarjeta")
             {
-                if (string.IsNullOrEmpty(numeroTarjeta) || numeroTarjeta.Length != 16 || !numeroTarjeta.All(char.IsDigit))
+                if (string.IsNullOrEmpty(numeroTarjeta) || numeroTarjeta.Length != 16 || !numeroTarjeta.All(char.IsNumber))
                 {
-                    return BadRequest("Numero de trajeta invalido. Debe ser un numero de 16 digitos");
+                    return BadRequest("Numero de trajeta inválido. Debe ser un numero de 16 digitos");
                 }
 
                 costoTotal += costoTotal * 0.10m;
@@ -37,11 +37,11 @@ namespace Practica1.Controllers
             }
             else if (tipoDePago.ToLower() == "efectivo")
             {
-                return Ok($"El costo total es: {costoTotal:C}");
+                return Ok($"El costo total es: {costoTotal}");
             }
             else
             {
-                return BadRequest("Tipo de pago invalido. Debe ser 'efectivo' o 'tarjeta'");
+                return BadRequest("Tipo de pago inválido. Debe ser 'efectivo' o 'tarjeta'");
             }
         }
 
