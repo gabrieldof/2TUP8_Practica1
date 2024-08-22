@@ -14,7 +14,7 @@ namespace Practica1.Controllers
         public ActionResult Get(int inicio, int fin)
         {
 
-            if (fin - inicio < 1000)
+            if (fin - inicio >= 1000)
             {
                 return BadRequest("La diferencia entre inicio y fin debe ser menor a 1000.");
             }
@@ -34,6 +34,15 @@ namespace Practica1.Controllers
                 }
                 
             }
+
+
+            // Se puede crear un objeto para la respuesta y devolver respuesta
+            //var resultado = new
+            //{
+            //    Pares = pares,
+            //    Impares = impares
+            //};
+            //return Ok(respuesta);
 
             return Ok(new { pares, impares });
 

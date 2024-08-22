@@ -12,7 +12,7 @@ namespace Practica1.Controllers
         [HttpGet]
         public ActionResult Get(int inicio, int fin)
         {
-            if (fin - inicio < 1000)
+            if (fin - inicio >= 1000)
             {
                 return BadRequest("La diferencia entre inicio y fin debe ser menor a 1000.");
             }
