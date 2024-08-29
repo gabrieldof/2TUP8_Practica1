@@ -34,7 +34,7 @@ namespace Practica1.Controllers
 
             var nombreclubes = from c in clubesdefutbol
                          select c.Nombre;
-            //WHERE
+            //QUERY SYNTAX
             var nombreclubesfiltrado = from c in clubesdefutbol
                                        where c.Provincia == "Santa Fe"
                                        select c.Nombre;
@@ -45,8 +45,45 @@ namespace Practica1.Controllers
                                                 .Select(c => c.Nombre);
 
 
+            //Order By
+            //QUERY SYNTAX
+            var nombreclubesfiltrado2 = from c in clubesdefutbol
+                                        orderby c.Nombre descending
+                                       where c.Provincia == "Santa Fe"
+                                       select c.Nombre;
 
-            return Ok(nombreclubesfiltrado1);
+            //Method
+
+            var nombreclubesfiltrado3 = clubesdefutbol.Where(c => c.Provincia == "Santa Fe")
+                                                .OrderByDescending (c => c.Nombre)
+                                                .Select(c => c.Nombre);
+
+
+            // Select top (SQL) --> take (LINQ)
+
+            //Method
+
+            var nombreclubesfiltrado4 = clubesdefutbol.Where(c => c.Fundacion < 1900)
+                                                .Skip(2)
+                                                .Take(4);
+
+            //Single - SingleOrDefault
+            //Method
+
+            var nombreclubesfiltrado5 = clubesdefutbol.Where(c => c.Fundacion < 1900)
+                                                .Single();
+
+            var nombreclubesfiltrado6 = clubesdefutbol.Where(c => c.Fundacion < 1800)
+                                    .SingleOrDefault();
+
+            // FirstOrDefault - LastOrDefault
+
+            var nombreclubesfiltrado7 = clubesdefutbol.Where(c => c.Fundacion > 1800)
+                        .FirstOrDefault();
+            var nombreclubesfiltrado8 = clubesdefutbol.Where(c => c.Fundacion > 1800)
+                        .LastOrDefault();
+
+            return Ok(nombreclubesfiltrado8);
 
         }
 
